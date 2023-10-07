@@ -81,6 +81,11 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
     })
   }
 
+  checkDate(date: Date): boolean {
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
+  }
+
   getPostsFromActiveFilterGroup (): Post[] {
     if (this.state.activeFilter === 'NEW') {
       return this.props.forum.recentPosts;
@@ -99,7 +104,6 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
   }
 
   render () {
-    console.log(this.props)
     const { activeFilter } = this.state;
 
     return (
@@ -116,7 +120,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
           />
         </div>
         <br/>
-        <br/>
+        <br/> 
 
         <PostFilters
           activeFilter={activeFilter}
@@ -130,6 +134,7 @@ class IndexPage extends React.Component<IndexPageProps, IndexPageState> {
             onDownvoteClicked={() => this.props.downvotePost(p.slug)}
             isLoggedIn={this.props.users.isAuthenticated}
             {...p}
+            isToday={activeFilter === 'NEW' && this.checkDate(new Date(p.createdAt))}
           />
         ))}
 

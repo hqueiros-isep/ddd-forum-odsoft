@@ -1,13 +1,13 @@
-
-.post-row
+@mixin base($base: none)
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
+  background-color: $base
 
-  .post-row-content
+  &-content
 
     .title
-      font-size: 1.25rem;
+      font-size: 1rem;
       padding: 0;
       margin-top: 1rem;
       margin-bottom: 0.25rem;
@@ -16,3 +16,9 @@
       text-decoration: none;
       color: inherit;
       display: block;
+
+.post-row
+  @include base
+
+.post-row-today
+  @include base($base: red)
